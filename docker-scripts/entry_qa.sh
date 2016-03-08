@@ -2,5 +2,5 @@
 
 set -ex
 
-cd lucida/questionanswering/lucida
+cd $LUCIDAROOT/questionanswering/lucida
 ./start-qa.sh $DOCKER_QUESTION_ANSWER $DOCKER_COMMAND_CENTER

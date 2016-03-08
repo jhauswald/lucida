@@ -2,5 +2,5 @@
 
 set -ex
 
-cd lucida/commandcenter
+cd $LUCIDAROOT/commandcenter
 ./cmd_server $DOCKER_COMMAND_CENTER

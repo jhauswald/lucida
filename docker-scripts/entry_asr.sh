@@ -2,5 +2,5 @@
 
 set -ex
 
-cd lucida/speechrecognition/lucida
+cd $LUCIDAROOT/speechrecognition/lucida
 ./asr_server $DOCKER_SPEECH_RECOGNITION $DOCKER_COMMAND_CENTER
