@@ -30,29 +30,5 @@ for x in nnet_a_gpu_online/conf/*conf; do
   sed s:/export/a09/dpovey/kaldi-clean/egs/fisher_english/s5/exp/nnet2_online/:$(pwd)/: < $x.orig > $x
 done
 
-echo "Downloading and installing Dependencies for Kaldi"
-
-# Consider using ffmpegscript to install ffmpeg in the conversion 
-# service folder
-# Add additional repositories (ffmpeg)
-#add-apt-repository ppa:kirillshkrogalev/ffmpeg-next
-
-# Enable multiverse sources (libfaac-dev)
-# sudo apt-add-repository multiverse
-#
-# # Update sources and install basics
-# sudo apt-get update
-# sudo apt-get -y install \
-#   git zip unzip subversion sox \
-#   default-jdk ant automake autoconf libtool bison \
-#   swig python-pip curl
-#
-# #apt-get install libboost-all-dev
-# #apt-get install ffmpeg
-#
-# # Get ATLAS library for Kaldi
-# sudo apt-get -y \
-# 	install libatlas-dev libatlas-base-dev
-
 echo "Done with Dependencies"
 echo "Preparation done."
