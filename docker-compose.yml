@@ -1,44 +1,20 @@
 ## to run
 ## $ docker-compose up
 
-# question_answering:
-#   image: lucida
-#   links:
-#     - command_center:command_center
-#   environment:
-#     - DOCKER_QUESTION_ANSWER=8090
-#     - DOCKER_COMMAND_CENTER=8080
-#   command: bash -c "sleep 10 && ./entry_qa.sh"
-#   command: ./entry_qa.sh
-
-# speech_recognition:
-#   image: lucida
-#   links:
-#     - command_center:command_center
-#   environment:
-#     - DOCKER_SPEECH_RECOGNITION=8091
-#     - DOCKER_COMMAND_CENTER=8080
-#   command: ./entry_asr.sh
-
-# image_matching:
-#   image: lucida
-#   links:
-#     - command_center:command_center
-#   environment:
-#     - DOCKER_IMAGE_MATCHING=8092
-#     - DOCKER_COMMAND_CENTER=8080
-#   command: ./entry_imm.sh
-#
-# command_center:
-#   image: lucida
-#   environment:
-#     - DOCKER_COMMAND_CENTER=8080
-#   ports:
-#     - "8080:8080"
-#   command: ./entry_cc.sh
-
-all_services:
-  image: lucida
+lucida_services:
+  image: claritylab/lucida:tutorial
   ports:
-    - "8080:8080"
-  command: bash -c "supervisord"
+    - "8081:8081" # learn server
+    - "8090:8090" # cc
+  command: bash -c "supervisord -c supervisord.conf"
+
+lucida_asr:
+  image: claritylab/lucida-asr:tutorial
+  command: bash -c "sleep 10; cd /opt/kaldi-gstreamer-server/ && ./start.sh -y sample_english_nnet2.yaml && cd lucida-demos/ && python -m SimpleHTTPServer 8089"
+  links:
+    - lucida_services:lucida_services
+  environment:
+    - LUCIDA_SERVICE=lucida_services:8090
+  ports:
+    - "8888:8888" # asr WS
+    - "8089:8089" # asr FE
